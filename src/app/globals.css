@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cs-dark: #0d1117;
+  --color-cs-panel: #161b22;
+  --color-cs-card: #1c2128;
+  --color-cs-border: #30363d;
+  --color-cs-hover: #21262d;
+  --color-cs-accent: #de9b35;
+  --color-cs-accent-dim: #b87a28;
+  --color-cs-text: #e6edf3;
+  --color-cs-muted: #8b949e;
+  --color-cs-green: #3fb950;
+  --color-cs-red: #f85149;
+  --color-cs-blue: #58a6ff;
+  --font-sans: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cs-dark);
+  color: var(--color-cs-text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(222, 155, 53, 0.03) 0%, transparent 40%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.008) 2px,
+      rgba(255, 255, 255, 0.008) 4px
+    );
+}
+
+.cs-grid-bg {
+  background-image:
+    linear-gradient(rgba(222, 155, 53, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(222, 155, 53, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.cs-card {
+  border: 1px solid var(--color-cs-border);
+  background: linear-gradient(135deg, var(--color-cs-card) 0%, var(--color-cs-panel) 100%);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.cs-card:hover {
+  border-color: var(--color-cs-accent-dim);
+  transform: translateY(-2px);
+}
+
+.cs-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--color-cs-accent);
+  color: var(--color-cs-accent);
+  background: rgba(222, 155, 53, 0.1);
+}
+
+.cs-stat-bar {
+  height: 4px;
+  background: var(--color-cs-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cs-stat-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-cs-accent-dim), var(--color-cs-accent));
+  border-radius: 2px;
+}
