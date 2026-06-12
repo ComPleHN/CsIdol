@@ -1,0 +1,33 @@
+{
+  "id": "niko",
+  "nickname": "NiKo",
+  "realName": "Nikola Kovač",
+  "nationality": "波黑",
+  "nationalityCode": "BA",
+  "team": "Team Falcons",
+  "role": "Rifler / Entry Fragger",
+  "avatar": "/images/niko-avatar.png",
+  "bio": "Nikola「NiKo」Kovač 是 CS 历史上最具代表性的步枪手之一，以极致的枪法、稳定的突破能力与大赛表现著称。从 mousesports 到 FaZe、G2，再到 Team Falcons，NiKo 长期位居世界顶尖选手行列，是无数玩家心中的偶像级 IDOL。",
+  "honors": [
+    { "year": 2024, "title": "IEM 达拉斯 冠军", "event": "Intel Extreme Masters Dallas" },
+    { "year": 2023, "title": "IEM 卡托维兹 冠军", "event": "Intel Extreme Masters Katowice" },
+    { "year": 2022, "title": "BLAST 全球总决赛 冠军", "event": "BLAST Premier World Final" },
+    { "year": 2021, "title": "IEM 科隆 冠军", "event": "Intel Extreme Masters Cologne" },
+    { "year": 2021, "title": "PGL 斯德哥尔摩 Major 亚军", "event": "PGL Major Stockholm" },
+    { "year": 2018, "title": "ELEAGUE Major 亚军", "event": "ELEAGUE Major Boston" },
+    { "year": 2017, "title": "ESL One 纽约 冠军", "event": "ESL One New York" },
+    { "year": 2017, "title": "HLTV 年度 TOP 2", "event": "HLTV Top 20 Players" },
+    { "year": 2016, "title": "ECS Season 2 冠军", "event": "ECS Season 2 Finals" }
+  ],
+  "gallery": [
+    { "id": "g1", "title": "IEM 卡托维兹 捧杯", "src": "/images/gallery/g1.svg", "category": "赛事" },
+    { "id": "g2", "title": "BLAST 总决赛 MVP 时刻", "src": "/images/gallery/g2.svg", "category": "赛事" },
+    { "id": "g3", "title": "Mirage A 区突破", "src": "/images/gallery/g3.svg", "category": "比赛" },
+    { "id": "g4", "title": "Inferno 香蕉道控制", "src": "/images/gallery/g4.svg", "category": "比赛" },
+    { "id": "g5", "title": "Team Falcons 队服定妆", "src": "/images/gallery/g5.svg", "category": "官方" },
+    { "id": "g6", "title": "1v3 残局高光", "src": "/images/gallery/g6.svg", "category": "比赛" },
+    { "id": "g7", "title": "Dust2 长枪局", "src": "/images/gallery/g7.svg", "category": "比赛" },
+    { "id": "g8", "title": "媒体日采访", "src": "/images/gallery/g8.svg", "category": "官方" },
+    { "id": "g9", "title": "Nuke 外场推进", "src": "/images/gallery/g9.svg", "category": "比赛" }
+  ]
+}

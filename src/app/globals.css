@@ -1,92 +1,86 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-@theme {
-  --color-cs-dark: #0d1117;
-  --color-cs-panel: #161b22;
-  --color-cs-card: #1c2128;
-  --color-cs-border: #30363d;
-  --color-cs-hover: #21262d;
-  --color-cs-accent: #de9b35;
-  --color-cs-accent-dim: #b87a28;
-  --color-cs-text: #e6edf3;
-  --color-cs-muted: #8b949e;
-  --color-cs-green: #3fb950;
-  --color-cs-red: #f85149;
-  --color-cs-blue: #58a6ff;
-  --font-sans: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-esports-gold: #f5a623;
+  --color-esports-green: #3ddc84;
+  --color-esports-red: #ff4757;
+  --color-esports-panel: #12151c;
 }
 
-* {
-  box-sizing: border-box;
+:root {
+  --radius: 0.5rem;
+  --background: #0a0b0f;
+  --foreground: #e8eaed;
+  --card: #12151c;
+  --card-foreground: #e8eaed;
+  --popover: #12151c;
+  --popover-foreground: #e8eaed;
+  --primary: #f5a623;
+  --primary-foreground: #0a0b0f;
+  --secondary: #1a1f2e;
+  --secondary-foreground: #e8eaed;
+  --muted: #1a1f2e;
+  --muted-foreground: #8b929e;
+  --accent: #1e2433;
+  --accent-foreground: #f5a623;
+  --destructive: #ff4757;
+  --border: #252b3b;
+  --input: #252b3b;
+  --ring: #f5a623;
+  --chart-1: #f5a623;
+  --chart-2: #3ddc84;
+  --chart-3: #5b8def;
+  --chart-4: #ff4757;
+  --chart-5: #a78bfa;
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      linear-gradient(rgba(245, 166, 35, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245, 166, 35, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
 }
 
-body {
-  background-color: var(--color-cs-dark);
-  color: var(--color-cs-text);
-  font-family: var(--font-sans);
-  min-height: 100vh;
+.esports-card {
+  @apply border border-border bg-card transition-all duration-300;
 }
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    linear-gradient(180deg, rgba(222, 155, 53, 0.03) 0%, transparent 40%),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(255, 255, 255, 0.008) 2px,
-      rgba(255, 255, 255, 0.008) 4px
-    );
-}
-
-.cs-grid-bg {
-  background-image:
-    linear-gradient(rgba(222, 155, 53, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(222, 155, 53, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-.cs-card {
-  border: 1px solid var(--color-cs-border);
-  background: linear-gradient(135deg, var(--color-cs-card) 0%, var(--color-cs-panel) 100%);
-  transition: border-color 0.2s, transform 0.2s;
-}
-
-.cs-card:hover {
-  border-color: var(--color-cs-accent-dim);
+.esports-card:hover {
+  @apply border-primary/40 shadow-[0_0_24px_rgba(245,166,35,0.08)];
   transform: translateY(-2px);
-}
-
-.cs-badge {
-  display: inline-block;
-  padding: 2px 8px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border: 1px solid var(--color-cs-accent);
-  color: var(--color-cs-accent);
-  background: rgba(222, 155, 53, 0.1);
-}
-
-.cs-stat-bar {
-  height: 4px;
-  background: var(--color-cs-border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.cs-stat-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-cs-accent-dim), var(--color-cs-accent));
-  border-radius: 2px;
 }

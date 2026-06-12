@@ -1,128 +1,102 @@
 # CS IDOL
 
-Counter-Strike 2 风格个人站点，基于 **Next.js 15 App Router** + **Tailwind CSS**，支持静态导出并部署到 **GitHub Pages**。
+Counter-Strike 2 **职业选手个人展示网站**，基于 Next.js 15 App Router + TypeScript + Tailwind CSS + Shadcn/ui，电竞风深色主题，数据全部来自本地 JSON。
 
-## 项目目录结构
+## 技术栈
+
+| 技术 | 用途 |
+|------|------|
+| Next.js 15 App Router | 路由与静态导出 |
+| TypeScript | 类型安全 |
+| Tailwind CSS v4 | 样式 |
+| Shadcn/ui | Button、Card、Badge、Dialog 等 |
+| Lucide Icons | 图标 |
+| Recharts | 地图胜率柱状图、综合雷达图 |
+
+## 目录结构
 
 ```
-CsIdol/
-├── public/
-│   └── .nojekyll              # 防止 GitHub Pages Jekyll 忽略 _next 目录
-├── src/
-│   ├── app/
-│   │   ├── about/
-│   │   │   └── page.jsx       # 个人简介页 /about/
-│   │   ├── works/
-│   │   │   └── page.jsx       # 作品页 /works/
-│   │   ├── globals.css        # Tailwind + CS2 主题变量
-│   │   ├── layout.jsx         # 根布局（客户端组件）
-│   │   ├── not-found.jsx      # 404 页面
-│   │   └── page.jsx           # 首页 /
-│   └── components/
-│       ├── Footer.jsx         # 页脚
-│       ├── Navbar.jsx         # 全局导航栏
-│       └── PageHeader.jsx     # 页面标题组件
-├── .gitignore
-├── jsconfig.json              # 路径别名 @/*
-├── next.config.js             # 静态导出 / basePath / trailingSlash
-├── package.json               # 脚本 & 依赖
-├── postcss.config.mjs         # PostCSS + Tailwind v4
-└── README.md
+src/app/
+├── data/                 # 本地静态 JSON
+│   ├── player.json       # 选手信息 + 荣誉 + 图集
+│   ├── matches.json      # 比赛记录
+│   ├── stats.json        # 统计数据
+│   └── index.ts          # 数据导出入口
+├── components/           # 公共组件
+│   ├── ui/               # Shadcn 基础组件
+│   ├── Navbar.tsx
+│   ├── StatCard.tsx
+│   ├── MatchCard.tsx
+│   ├── MapWinRateChart.tsx
+│   ├── PlayerRadarChart.tsx
+│   ├── ImageGallery.tsx
+│   └── ImagePreviewDialog.tsx
+├── competitions/page.tsx # 赛事页
+├── stats/page.tsx        # 数据统计页
+├── gallery/page.tsx      # 图集页
+├── page.tsx              # 首页
+├── layout.tsx
+└── types/index.ts
+
+public/images/            # 图片资源（头像、图集）
 ```
 
-## 技术要点
+## 页面路由
 
-| 配置项 | 说明 |
-|--------|------|
-| `output: "export"` | 生成纯静态 HTML，输出到 `out/` |
-| `images.unoptimized: true` | 关闭 Next.js 图片优化（静态导出不支持） |
-| `trailingSlash: true` | 路由带尾斜杠，GitHub Pages 子目录刷新不 404 |
-| `public/.nojekyll` | 保留 `_next` 静态资源目录 |
-| `basePath` | 通过环境变量适配 `username.github.io/仓库名/` |
-| 全客户端组件 | 所有页面与布局均使用 `"use client"` |
+| 路径 | 说明 |
+|------|------|
+| `/` | 选手总览：头像、档案、荣誉墙 |
+| `/competitions/` | 赛事列表，支持 Tier 标签筛选 |
+| `/stats/` | Rating/KD/ADR 等数据卡片 + 图表 |
+| `/gallery/` | 图集网格，点击弹窗预览与翻页 |
+| `/admin/` | 本地数据管理（开发环境写入 JSON 文件） |
 
 ## 本地开发
 
 ```bash
-# 1. 安装依赖
 npm install
-
-# 2. 启动开发服务器（默认 http://localhost:3000）
-npm run dev
+npm run dev      # 同时启动 Next.js + 本地 data-api（:3456）
+npm run build    # 静态导出到 out/
+npm run preview  # 预览 out/
 ```
 
-## 本地预览静态产物
+`npm run dev` 会自动启动 `scripts/data-api.mjs`，Admin 页面（`/admin/`）可通过表单直接保存到 `src/app/data/*.json`。
+
+单独启动数据 API：`npm run data-api`
+
+## Admin 数据管理
+
+访问 **http://localhost:3000/admin/**（需 `npm run dev`）。
+
+| 标签 | 对应文件 | 功能 |
+|------|----------|------|
+| 选手 | player.json | 基础信息、荣誉、图集 |
+| 比赛 | matches.json | 增删改比赛与地图 |
+| 统计 | stats.json | 综合数据、地图、雷达图 |
+| JSON | 全部 | 原始 JSON 编辑 |
+
+> 静态部署（GitHub Pages）不含 data-api，Admin 仅本地开发可用。线上数据请在本地编辑后重新 `npm run build` 部署。
+
+可选鉴权：在 `.env.local` 设置 `ADMIN_TOKEN=你的密钥`，请求需带 `Authorization: Bearer <token>`。
+
+## 修改数据
+
+编辑 `src/app/data/` 下三个 JSON 文件即可，**无需任何 API**：
+
+- **player.json** — 昵称、真名、国籍、战队、位置、简介、荣誉、图集
+- **matches.json** — 日期、赛事、对手、比分、地图、赛果、标签
+- **stats.json** — overview 综合数据、maps 地图统计、radar 雷达维度
+
+图片放入 `public/images/`，在 JSON 中用 `/images/...` 路径引用。
+
+CS 竞技地图代表图已内置在 `public/images/maps/`（Mirage、Inferno、Dust2、Nuke、Ancient、Anubis、Train、Vertigo、Overpass），来源为 CS2 官方游戏资源社区镜像 [MurkyYT/cs2-map-icons](https://github.com/MurkyYT/cs2-map-icons)。
+
+## 部署
 
 ```bash
-# 普通静态构建（无 basePath，适合本地预览根路径）
-npm run build
-
-# 启动静态文件服务预览 out 目录
-npm run preview
+npm run build:gh   # GitHub Pages（含 basePath）
+npm run deploy     # 推送到 gh-pages 分支
 ```
-
-若需模拟 GitHub Pages 子路径部署：
-
-```bash
-npm run build:gh
-npx serve out
-# 访问 http://localhost:3000/CsIdol/
-```
-
-> **注意**：`build:gh` 脚本中 `NEXT_PUBLIC_BASE_PATH=/CsIdol` 需与你的 GitHub 仓库名一致。若仓库名不同，请修改 `package.json` 中 `build:gh` 和 `deploy` 脚本的路径。
-
-## 部署到 GitHub Pages
-
-### 前置条件
-
-1. 在 GitHub 创建仓库（例如 `CsIdol`）
-2. 仓库 **Settings → Pages → Build and deployment** 选择 **Deploy from a branch**
-3. Branch 选择 `gh-pages`，文件夹选 `/ (root)`
-
-### 一键部署
-
-```bash
-# 构建（含 basePath）并推送到 gh-pages 分支
-npm run deploy
-```
-
-该命令等价于：
-
-```bash
-cross-env NEXT_PUBLIC_BASE_PATH=/CsIdol next build
-gh-pages -d out -t true
-```
-
-`-t true` 会在部署分支自动添加 `.nojekyll`（项目中 public 目录也已包含）。
-
-### 手动部署步骤
-
-```bash
-# 1. 修改 basePath 为你的仓库名后构建
-npm run build:gh
-
-# 2. 将 out 目录推送到 gh-pages 分支
-npx gh-pages -d out -t true
-```
-
-### 访问地址
-
-- 用户/组织页：`https://<username>.github.io/`（需将 basePath 设为空字符串）
-- 项目页：`https://<username>.github.io/CsIdol/`
-
-## 页面路由
-
-| 路径 | 页面 |
-|------|------|
-| `/` | 首页 — CS2 风格 Hero + 数据面板 |
-| `/about/` | 个人简介 — 玩家档案 & 技能矩阵 |
-| `/works/` | 作品集 — 战术/创意/开发项目卡片 |
-
-## 自定义
-
-- **修改 CS2 配色**：编辑 `src/app/globals.css` 中的 `@theme` 变量
-- **修改仓库名/basePath**：编辑 `package.json` 的 `build:gh` 与 `deploy` 脚本
-- **添加页面**：在 `src/app/` 下新建目录和 `page.jsx`（记得加 `"use client"`），并在 `Navbar.jsx` 中添加导航项
 
 ## License
 

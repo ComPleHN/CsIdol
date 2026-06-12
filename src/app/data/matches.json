@@ -1,0 +1,41 @@
+[
+  {
+    "id": "m1781238410192",
+    "date": "2026-06-12",
+    "event": "IEM 科隆 Major 2026",
+    "eventTag": "Major",
+    "opponent": "G2",
+    "score": "2:0",
+    "result": "win",
+    "maps": [
+      {
+        "name": "Inferno",
+        "score": "10:13",
+        "result": "loss",
+        "playerStats": {
+          "rating": 2.27,
+          "kills": 0,
+          "deaths": 0,
+          "headshots": 0,
+          "adr": 114.1,
+          "kastRounds": 0,
+          "multiKillRounds": 0,
+          "survivedRounds": 0,
+          "openingKills": 0,
+          "clutchWins": 0,
+          "impact": 0
+        }
+      },
+      {
+        "name": "Dust2",
+        "score": "13:8",
+        "result": "win"
+      },
+      {
+        "name": "Ancient",
+        "score": "16:13",
+        "result": "win"
+      }
+    ]
+  }
+]
